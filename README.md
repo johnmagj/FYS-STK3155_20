@@ -1,3 +1,3 @@
 # FYS-STK3155
  
-Autumn 2020
+ UiO, autumn 2020
