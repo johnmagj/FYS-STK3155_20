@@ -83,13 +83,12 @@ plt.show()
 # Creating column vector of the z values, turning z (20x20) into an
 # array Z (400x1), staring with x_0 for all y's followed
 # by x_1 for all y's etc.
-
 Z = np.zeros(np.size(z))
 for i in range(len(z)):
         Z[len(z)*i : len(z)*i + len(z)] = z[:,i]
         
-# Creating design matrixes as functuon different polynomials
-
+# Creating design matrixes as function of polynomials in two variables,
+# from degree 1 to 5.
 X1 = np.zeros((np.size(z),3))
 for i in range(len(x)):
         X1[len(z)*i : len(z)*i + len(z),0] = 1.0
@@ -160,8 +159,6 @@ for i in range(len(x)):
         X5[len(z)*i : len(z)*i + len(z),19] = y[:,i]**5
         X5[len(z)*i : len(z)*i + len(z),20] = x[:,i]**5        
         
-
-
 #  The design matrix now as function of a given polynomial
 X = np.zeros((np.size(z),6))
 
@@ -172,6 +169,26 @@ for i in range(len(x)):
         X[len(z)*i : len(z)*i + len(z),3] = x[:,i]*y[:,i]
         X[len(z)*i : len(z)*i + len(z),4] = y[:,i]**2
         X[len(z)*i : len(z)*i + len(z),5] = x[:,i]**2
+        
+def calc(X):
+    # We split the data in test and training data
+    X_train, X_test, Z_train, Z_test = train_test_split(X, Z, test_size=0.2)
+    # matrix inversion to find beta
+    beta = np.linalg.inv(X_train.T @ X_train) @ X_train.T @ Z_train
+    print(beta)
+    # and then make the prediction
+    Ztilde = X_train @ beta
+    print("Training R2")
+    print(R2(Z_train,Ztilde))
+    print("Training MSE")
+    print(MSE(Z_train,Ztilde))
+    Zpredict = X_test @ beta
+    print("Test R2")
+    print(R2(Z_test,Zpredict))
+    print("Test MSE")
+    print(MSE(Z_test,Zpredict))
+    
+    return
         
         
 # We split the data in test and training data

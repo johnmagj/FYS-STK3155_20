@@ -1,292 +1,587 @@
-\documentclass{pasa}%
 
-\usepackage{graphicx}
+%-------------------- begin preamble ----------------------
 
-\title[This Is An Example of Short Title]{This Is An Example of Article Title}
+\documentclass[%
+oneside,                 % oneside: electronic viewing, twoside: printing
+final,                   % draft: marks overfull hboxes, figures with paths
+10pt]{article}
 
-%% Please note that the command \and is not supported in \author.
-\author[Author1 et al.]{Author1$^1$, Author2$^2$, Author3$^2$ and Author4$^{2,}$\thanks{This is an example of author footnote}
-\affil{$^1$This is  an example of Affiliation r Author 1}%
-\affil{$^2$This is  an example of Affiliation for Author 2}
-}%
+\listfiles               %  print all files needed to compile this document
+
+\usepackage{relsize,makeidx,color,setspace,amsmath,amsfonts,amssymb}
+\usepackage[table]{xcolor}
+\usepackage{bm,ltablex,microtype}
+
+\usepackage[pdftex]{graphicx}
+
+\usepackage[title]{appendix}
+
+\usepackage{fancyvrb} % packages needed for verbatim environments
+
+\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{lmodern}         % Latin Modern fonts derived from Computer Modern
+
+% Hyperlinks in PDF:
+\definecolor{linkcolor}{rgb}{0,0,0.4}
+\usepackage{hyperref}
+\usepackage{varioref}
+\usepackage{cleveref}
+
+\hypersetup{
+    breaklinks=true,
+    colorlinks=true,
+    linkcolor=linkcolor,
+    urlcolor=linkcolor,
+    citecolor=black,
+    filecolor=black,
+    %filecolor=blue,
+    pdfmenubar=true,
+    pdftoolbar=true,
+    bookmarksdepth=3   % Uncomment (and tweak) for PDF bookmarks with more levels than the TOC
+    }
+%\hyperbaseurl{}   % hyperlinks are relative to this root
+
+\setcounter{tocdepth}{2}  % levels in table of contents
+
+% --- fancyhdr package for fancy headers ---
+\usepackage{fancyhdr}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Ensure copyright on titlepage (article style) and chapter pages (book style)
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{{\footnotesize \copyright\ johnmagj}}
+%  \renewcommand{\footrulewidth}{0mm}
+  \renewcommand{\headrulewidth}{0mm}
+}
+% Ensure copyright on titlepages with \thispagestyle{empty}
+\fancypagestyle{empty}{
+  \fancyhf{}
+  \fancyfoot[C]{{\footnotesize \href{https://github.com/johnmagj}{https://github.com/johnmagj}}}
+  \renewcommand{\footrulewidth}{0mm}
+  \renewcommand{\headrulewidth}{0mm}
+}
+
+\pagestyle{fancy}
 
 
-\jid{PASA}
-\doi{10.1017/pas.\the\year.xxx}
-\jyear{\the\year}
+% prevent orhpans and widows
+\clubpenalty = 10000
+\widowpenalty = 10000
 
-\usepackage{aas_macros}
-\usepackage{hyperref} 
-\hypersetup{colorlinks,citecolor=blue,linkcolor=blue,urlcolor=blue}
+% --- end of standard preamble for documents ---
 
-%%%%%%% IMPORTANT: We disable hyperlinks by default with this line, to avoid the error "\pdfendlink ended up in different nesting level" while writing.
-\hypersetup{draft}
-%%%%%%% You may comment or delete the line above to make hyperlinks in your paper active. If you then encounter a strange "\pdfendlink ended up in different nesting level than \pdfstartlink", don't worry! Uncomment the line again, and see https://www.overleaf.com/help/246 for further information.
+
+% insert custom LaTeX commands...
+
+\raggedbottom
+\makeindex
+\usepackage[totoc]{idxlayout}   % for index in the toc
+\usepackage[nottoc]{tocbibind}  % for references/bibliography in the toc
+
+%-------------------- end preamble ----------------------
 
 \begin{document}
 
-\begin{frontmatter}
-\maketitle
+\today
+
+
+
+% matching end for #ifdef PREAMBLE
+
+\newcommand{\exercisesection}[1]{\subsection*{#1}}
+
+
+% ------------------- main content ----------------------
+
+
+
+% ----------------- title -------------------------
+
+\thispagestyle{empty}
+
+\begin{center}
+{\LARGE\bf
+\begin{spacing}{1.25}
+Project 1.
+\end{spacing}
+}
+FYS-STK3155
+\end{center}
+
+\begin{center}
+
+\end{center}
+
+% ----------------- author(s) -------------------------
+
+\begin{center}
+{\bf {John-Magnus Johnsen}}
+\end{center}
+
+    \begin{center}
+% List of all institutions:
+\centerline{{\small Department of Physics, University of Oslo, Norway}}
+\end{center}
+    
+% ----------------- end author(s) -------------------------
 
 \begin{abstract}
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
+Her
 \end{abstract}
 
-\begin{keywords}
-keyword1 -- keyword2 -- keyword3 -- keyword4 -- keyword5
-\end{keywords}
-\end{frontmatter}
+\vspace{1cm}
+
+\tableofcontents
 
 
-\section{INTRODUCTION }
-\label{sec:intro}
+\section{Introduction}
+We start off by examning the so called Franke function, \vref{eq:Franke}. The formula give us a set of values located in above the xy-plane similar to altitude points.
 
-Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.
+\section{Methods}
 
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
+\subsection{Code and implementation}
 
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on \cite{abt1961}. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government \cite{abt1961} of the people, by the people, for the people, shall not perish from the earth.
+\section{Discussion}
 
-
-Now we are engaged in a great civil war, testing whether that nation, \cite{abt1967} or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this (see Table~\ref{tab1}).
-
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, \citet{lwt}, so nobly carried on. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government of the people, by the people, for the people, shall not perish from the earth.
-
-Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal Sargent, Boksenberg, \& Steidel \citet{sbs}.
-
-\begin{table}
-\caption{This is an example of table caption.}
-\centering
-\begin{tabular}{@{}cc@{}}
-\hline\hline
-Dimension & Classification accuracy \\
-\hline%
- 1  & 0.6232 \\
- 2  & 0.9635 \\ 
- 3  & 0.9724 \\ 
- 4  & 0.9690 \\ 
- 5  & 0.9840 \\ 
- 6  & 0.9842 \\ 
- 7  & 0.9873 \\ 
- 8  & 0.9884 \\
- 9  & 0.9873 \\ 
- 10 & 0.9898 \\ 
- 11 & 0.9914 \\
-\hline\hline
-\end{tabular}
-\label{tab1}
-\end{table}
-
- 
-\section{THIS IS AN EXAMPLE OF HEAD LEVEL 1}
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government of the people, \cite{abt1979} by the people, for the people, shall not perish from the earth.
-
-\subsection{This is an example of head level 2}
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
-
-\begin{quotation}
-This is a longer quotation. It consists of two paragraphs of text, neither of which are particularly interesting.
-
-This is the second paragraph of the quotation. It is just as dull as the first paragraph.
-\end{quotation} 
-
-\subsubsection{This is an example of head level 3}
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government of the people, by the people, for the people, shall not perish from the earth.
-
-\paragraph{This is an example of head level 4.}
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
-Let
-\[
-x=(x_1,\dots,x_n)\in R^n
-\]be an \(n\)-dimensional vector. The sparse PCA problem can be written as
-\begin{equation}\label{eq1}
-\max\limits_{x}\{x^TAx-\rho\|x\|_0:x^Tx=1\},
-\end{equation}
-It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion\break equation (\ref{eq1}). 
-\[\max\limits_{x}\{x^TAx :x^Tx=1\}.\]
-If $A$ The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here.
+\section{Conclusions}
 
 
-Equation (\ref{eq1}) is a special case of the following sparse generalized eigenvector problem (GEV):
-\begin{equation}\label{GEV}
-\max\limits_{x}\{x^TAx-\rho \|x\|_0: x^TBx\leq 1\},
-\end{equation}
 
-Now we are $A\in S^n $ engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. $\|x\|_\epsilon= \sum\limits_{i=1}^n\frac{\log(1+\frac{|x_i|}{\epsilon})}{\log(1+\frac{1}{\epsilon})}.$ We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. $\|x\|_0$ by $\|x\|_1$ It is altogether fitting and proper that we should do this in (\ref{GEV}).
+\subsection*{Regression analysis and resampling methods}
 
-Let $\rho_\epsilon= {\rho}/{\log(1+\frac{1}{\epsilon})}$. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far:
-\begin{align}
-\min\limits_{x,y}  \{\tau\|x\|_2^2-[ &x^T(A+\tau I_n)x-\rho_\epsilon\sum\limits_{i=1}^n\log(y_i+\epsilon)]: \\
-  & x^TBx\leq 1, -y\leq x\leq y\}
-\end{align}
-by choosing an appropriate $\tau\in R$ such that $A+\tau I_n\in S_+^n$ (the set of positive semidefinite matrices of size $n\times n$ defined over $R$). Suppose
+The main aim of this project is to study in more detail various
+regression methods, including the Ordinary Least Squares (OLS) method,
+Ridge regression and finally Lasso regression. Ridge regression will be discussed during the Friday lecture of week 36 while Lasso Regression will be discussed during the lectures of week 37.
+
+The methods are in turn combined with resampling techniques like the bootstrap method and cross validation. These are discussed during weeks 36 and 37.
+
+We will first study how to fit polynomials to a specific
+two-dimensional function called \href{{http://www.dtic.mil/dtic/tr/fulltext/u2/a081688.pdf}}{Franke's
+function}.  This
+is a function which has been widely used when testing various
+interpolation and fitting algorithms. Furthermore, after having
+established the model and the method, we will employ resamling
+techniques such as cross-validation and/or bootstrap in order to perform a
+proper assessment of our models. We will also study in detail the
+so-called Bias-Variance trade off.
+
+
+The Franke function, which is a weighted sum of four exponentials  reads as follows
 \begin{align*}
-g((x,y),(z,w)):&=\tau\|x\|_2^2-z^T(A+\tau I_n)z\\
-               &+\rho_\epsilon\sum\limits_{i=1}^n\log(\epsilon+w_i)-2(x-z)^T\\
-               &+\rho_\epsilon\sum\limits_{i=1}^n\frac{y_i-w_i}{w_i+\epsilon},
+f(x,y) &= \frac{3}{4}\exp{\left(-\frac{(9x-2)^2}{4} - \frac{(9y-2)^2}{4}\right)}+\frac{3}{4}\exp{\left(-\frac{(9x+1)^2}{49}- \frac{(9y+1)}{10}\right)} \\
+&+\frac{1}{2}\exp{\left(-\frac{(9x-7)^2}{4} - \frac{(9y-3)^2}{4}\right)} -\frac{1}{5}\exp{\left(-(9x-4)^2 - (9y-7)^2\right) }.
 \end{align*}
-which is the majorization function of
-\begin{equation}\label{mm}
-f(x,y)=\tau\|x\|_2^2+\rho_\epsilon\sum\limits_{i=1}^n\log(\epsilon+y_i)-x^T(A+\tau I_n)x.
-\end{equation}
 
-We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
+The function will be defined for $x,y\in [0,1]$.  Our first step will
+be to perform an OLS regression analysis of this function, trying out
+a polynomial fit with an $x$ and $y$ dependence of the form $[x, y,
+x^2, y^2, xy, \dots]$. We will also include bootstrap first as
+a resampling technique.  After that we will include the cross-validation technique. As in homeworks 1 and 2, we can use a uniform
+distribution to set up the arrays of values for $x$ and $y$, or as in
+the example below just a set of fixed 
+values for $x$ and $y$ with a given step
+size.  We will fit a
+function (for example a polynomial) of $x$ and $y$.  Thereafter we
+will repeat much of the same procedure using the Ridge and Lasso
+regression methods, introducing thus a dependence on the bias
+(penalty) $\lambda$.
 
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
-\begin{verse}
- There is an environment 
- for verse \\ 
- Whose features some poets % within a stanza.
- will curse. 
-
- For instead of making\\
- Them do \emph{all} line breaking, \\
- It allows them to put too many words on a line when they'd rather be 
- forced to be terse.
-\end{verse} 
-If $A$ The brave men, living and dead, who struggled, here, have consecrated\footnote{This is an example of text footnote.} it far above our poor power to add or detract. The world will little note, nor long remember, what we say here Table~\ref{tab2}.
-
-\section{THIS IS AN EXAMPLE OF HEAD LEVEL 1}
-
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government of the people, by the people, for the people, shall not perish from the earth.
+Finally we are going to use (real) digital terrain data and try to
+reproduce these data using the same methods. We will also try to go
+beyond the second-order polynomials metioned above and explore 
+which polynomial fits the data best.
 
 
-\begin{table*}
-\caption{It is rather for us to be here dedicated to the great $\alpha^{(1)}$ and $\alpha^{(2)}$ task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last.} 
-\centering
-\begin{tabular*}{\textwidth}{@{}c\x c\x c\x c\x c\x c\x c\x c\x c\x c\x c\x c@{}}
-\hline \hline
- Layer   & $V_{\rm P0}$   & $V_{\rm S0}$     &  $\epsilon^{(1)}$  &  $\epsilon^{(2)}$ 
-         & $\delta^{(1)}$ & $\delta^{(2)}$  &  $\delta^{(3)}$    & $\gamma^{(1)}$ 
-         & $\gamma^{(2)}$ & $\alpha^{(1)}$  & $\alpha^{(2)}$ \\
- number  & (km/s)        & (km/s)          & ~                  & ~ 
-         & ~             & ~               & ~                  & ~ 
-         & ~             & $(^\circ)$       & $(^\circ)$ \\
-%
-\hline
- 1 & 3.5 & 2.0 & 0.20 & -0.05 & 0.00 & -0.20 & -0.05 & 0.20 & ~0.05 & 20 & 10 \\ 
- 2 & 2.5 & 1.5 & 0.10 & -0.15 & 0.05 & -0.15 & ~0.00 & 0.10 & -0.05 & 20 & 40 \\ 
- 3 & 3.0 & 1.8 & 0.20 & -0.05 & 0.25 & ~0.05 & ~0.20 & 0.15 & ~0.00 & 20 & 70$^a$ \\
-\hline \hline
-\end{tabular*}\label{tab2}
+The Python code for the Franke function is included here (it performs also a three-dimensional plot of it)
+\begin{verbatim}
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
+import numpy as np
+from random import random, seed
 
-\medskip
-\tabnote{$^a$This is an example of table footnote}
-\tabnote{This is an example of table footnote}
-\tabnote{This is an example of table footnote}
-\end{table*}
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+
+# Make data.
+x = np.arange(0, 1, 0.05)
+y = np.arange(0, 1, 0.05)
+x, y = np.meshgrid(x,y)
 
 
-\begin{itemize}
-\item This is a longer itemize list. It consists of two paragraphs of text, neither of which are particularly interesting {\sc ii}.
-\item This is a longer itemize list. It consists of two paragraphs of text, neither of which are particularly interesting.
-\item This is a longer itemize list. It consists of two paragraphs of text, neither of which are particularly interesting.
-\end{itemize}
+def FrankeFunction(x,y):
+    term1 = 0.75*np.exp(-(0.25*(9*x-2)**2) - 0.25*((9*y-2)**2))
+    term2 = 0.75*np.exp(-((9*x+1)**2)/49.0 - 0.1*(9*y+1))
+    term3 = 0.5*np.exp(-(9*x-7)**2/4.0 - 0.25*((9*y-3)**2))
+    term4 = -0.2*np.exp(-(9*x-4)**2 - (9*y-7)**2)
+    return term1 + term2 + term3 + term4
 
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
 
-\begin{enumerate}%
-\item This is a longer numbered list. It consists of two paragraphs of text, neither of which are particularly interesting.
-\item This is a short numbered list. It consists of two paragraphs of text.
+z = FrankeFunction(x, y)
+
+# Plot the surface.
+surf = ax.plot_surface(x, y, z, cmap=cm.coolwarm,
+                       linewidth=0, antialiased=False)
+
+# Customize the z axis.
+ax.set_zlim(-0.10, 1.40)
+ax.zaxis.set_major_locator(LinearLocator(10))
+ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+
+# Add a color bar which maps values to colors.
+fig.colorbar(surf, shrink=0.5, aspect=5)
+
+plt.show()
+
+\end{verbatim}
+
+
+\paragraph{Part a): Ordinary Least Square (OLS) on the Franke function.}
+We will generate our own dataset for a function
+$\mathrm{FrankeFunction}(x,y)$ with $x,y \in [0,1]$. The function
+$f(x,y)$ is the Franke function. You should explore also the addition
+of an added stochastic noise to this function using the normal
+distribution $N(0,1)$.
+
+\emph{Write your own code} (using either a matrix inversion or a singular
+value decomposition from e.g., \textbf{numpy} ) or use your code from
+homeworks 1 and 2 and perform a standard least square regression
+analysis using polynomials in $x$ and $y$ up to fifth order. Find the
+\href{{https://en.wikipedia.org/wiki/Confidence_interval}}{confidence intervals} of the parameters (estimators) $\beta$ by computing their
+variances, evaluate the Mean Squared error (MSE)
+
+\[ MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n}
+\sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2, 
+\] 
+
+and the $R^2$ score function.  If $\tilde{\hat{y}}_i$ is the predicted
+value of the $i-th$ sample and $y_i$ is the corresponding true value,
+then the score $R^2$ is defined as
+
+\[
+R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\sum_{i=0}^{n - 1} (y_i - \tilde{y}_i)^2}{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2},
+\]
+
+where we have defined the mean value  of $\hat{y}$ as
+
+\[
+\bar{y} =  \frac{1}{n} \sum_{i=0}^{n - 1} y_i.
+\]
+
+Your code has to include a scaling of the data (for example by
+subtracting the mean value, see also \href{{https://compphysics.github.io/MachineLearning/doc/Projects/2020/hw2/html/hw2-bs.html}}{homework set 2} for examples) and
+a split of the data in training and test data. For this part you can
+either write your own code or use for example the function for
+splitting training data provided by the library \textbf{Scikit-Learn} (make
+sure you have installed it).  This function is called
+$train\_test\_split$. Similarly, and see the solution to \href{{https://compphysics.github.io/MachineLearning/doc/Projects/2020/hw2/html/hw2-bs.html}}{homework set 2, exercise 2}, you can use the data normalization functionality of
+\textbf{Scikit-Learn}.
+
+It is normal in essentially all Machine Learning studies to split the
+data in a training set and a test set (eventually  also an additional
+validation set).  There
+is no explicit recipe for how much data should be included as training
+data and say test data.  An accepted rule of thumb is to use
+approximately $2/3$ to $4/5$ of the data as training data.
+
+
+
+
+
+
+\paragraph{Part b): Bias-variance trade-off and resamplng techniques.}
+Our aim here is to study the bias-variance trade-off by implementing the \textbf{bootstrap} resampling technique.
+
+With a code which does OLS and includes resampling techniques, 
+we will now discuss the bias-variance trade-off in the context of
+continuous predictions such as regression. However, many of the
+intuitions and ideas discussed here also carry over to classification
+tasks and basically all Machine Learning algorithms. 
+
+Before you perform an analysis of the bias-variance trade-off on your test data, make
+first a figure similar to Fig.~2.11 of Hastie, Tibshirani, and
+Friedman. Figure 2.11 of this reference displays only the test and training MSEs. The test MSE can be used to 
+indicate possible regions of low/high bias and variance. You will most likely not get an
+equally smooth curve!
+
+With this result we move on to the bias-variance trade-off analysis.
+
+Consider a
+dataset $\mathcal{L}$ consisting of the data
+$\mathbf{X}_\mathcal{L}=\{(y_j, \boldsymbol{x}_j), j=0\ldots n-1\}$.
+
+Let us assume that the true data is generated from a noisy model
+
+\[
+\bm{y}=f(\boldsymbol{x}) + \bm{\epsilon}.
+\]
+
+Here $\epsilon$ is normally distributed with mean zero and standard
+deviation $\sigma^2$.
+
+In our derivation of the ordinary least squares method we defined then
+an approximation to the function $f$ in terms of the parameters
+$\bm{\beta}$ and the design matrix $\bm{X}$ which embody our model,
+that is $\bm{\tilde{y}}=\bm{X}\bm{\beta}$.
+
+The parameters $\bm{\beta}$ are in turn found by optimizing the means
+squared error via the so-called cost function
+
+\[
+C(\bm{X},\bm{\beta}) =\frac{1}{n}\sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2=\mathbb{E}\left[(\bm{y}-\bm{\tilde{y}})^2\right].
+\]
+Here the expected value $\mathbb{E}$ is the sample value. 
+
+Show that you can rewrite  this as
+\[
+\mathbb{E}\left[(\bm{y}-\bm{\tilde{y}})^2\right]=\frac{1}{n}\sum_i(f_i-\mathbb{E}\left[\bm{\tilde{y}}\right])^2+\frac{1}{n}\sum_i(\tilde{y}_i-\mathbb{E}\left[\bm{\tilde{y}}\right])^2+\sigma^2.
+\]
+
+Explain what the terms mean, which one is the bias and which one is
+the variance and discuss their interpretations.
+
+Perform then a bias-variance analysis of the Franke function by
+studying the MSE value as function of the complexity of your model.
+
+Discuss the bias and variance trade-off as function
+of your model complexity (the degree of the polynomial) and the number
+of data points, and possibly also your training and test data using the \textbf{bootstrap} resampling method.
+
+Note also that when you calculate the bias, in all applications you don't know the function values $f_i$. You would hence replace them with the actual data points $y_i$.
+
+
+\paragraph{Part c) Cross-validation as resampling techniques, adding more complexity.}
+The aim here is to write your own code for another widely popular
+resampling technique, the so-called cross-validation method.  Again,
+before you start with cross-validation approach, you should scale your
+data.
+
+Implement the $k$-fold cross-validation algorithm (write your own
+code) and evaluate again the MSE function resulting
+from the test folds. You can compare your own code with that from
+\textbf{Scikit-Learn} if needed. 
+
+Compare the MSE you get from your cross-validation code with the one you got from your \textbf{bootstrap} code. Comment your results. Try $5-10$ folds. 
+You can also compare your own cross-validation code with the one provided by \textbf{Scikit-Learn}. 
+
+
+\paragraph{Part d): Ridge Regression on the Franke function  with resampling.}
+Write your own code for the Ridge method, either using matrix
+inversion or the singular value decomposition as done in the previous
+exercise or howework 2 (see also chapter 3.4 of Hastie \emph{et al.},
+equations (3.43) and (3.44)). Perform the same bootstrap analysis as in the
+part b)  (for the same polynomials) and the cross-validation part in part c) but now for different values of $\lambda$. Compare and
+analyze your results with those obtained in parts a-c). Study the
+dependence on $\lambda$.
+
+Study also the bias-variance trade-off as function of various values of
+the parameter $\lambda$. For the bias-variance trade-off, use the \textbf{bootstrap} resampling method. Comment your results. 
+
+\paragraph{Part e): Lasso Regression on the Franke function  with resampling.}
+This part is essentially a repeat of the previous two ones, but now
+with Lasso regression. Write either your own code (difficult and optional) or, in this case,
+you can also use the functionalities of \textbf{Scikit-Learn} (recommended). 
+Give a
+critical discussion of the three methods and a judgement of which
+model fits the data best.  Perform here as well an analysis of the bias-variance trade-off using the \textbf{bootstrap} resampling technique and an analysis of the mean squared error using cross-validation. 
+
+\paragraph{Part f): Introducing real data and preparing the data analysis.}
+With our codes functioning and having been tested properly on a
+simpler function we are now ready to look at real data. We will
+essentially repeat in part g) what was done in parts a-e). However, we
+need first to download the data and prepare properly the inputs to our
+codes.  We are going to download digital terrain data from the website
+\href{{https://earthexplorer.usgs.gov/}}{\nolinkurl{https://earthexplorer.usgs.gov/}},
+
+In order to obtain data for a specific region, you need to register as
+a user (free) at this website and then decide upon which area you want
+to fetch the digital terrain data from.  In order to be able to read
+the data properly, you need to specify that the format should be \textbf{SRTM
+Arc-Second Global} and download the data as a \textbf{GeoTIF} file.  The
+files are then stored in \emph{tif} format which can be imported into a
+Python program using
+
+\begin{verbatim}
+scipy.misc.imread
+\end{verbatim}
+
+Here is a simple part of a Python code which reads and plots the data
+from such files
+
+\begin{verbatim}
+import numpy as np
+from imageio import imread
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+
+# Load the terrain
+terrain1 = imread('SRTM_data_Norway_1.tif')
+# Show the terrain
+plt.figure()
+plt.title('Terrain over Norway 1')
+plt.imshow(terrain1, cmap='gray')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.show()
+\end{verbatim}
+
+If you should have problems in downloading the digital terrain data,
+we provide two examples under the data folder of project 1. One is
+from a region close to Stavanger in Norway and the other Møsvatn
+Austfjell, again in Norway.
+Feel free to produce your own terrain data.
+
+
+Alternatively, if you would like to use another data set, feel free to do so. This could be data close to your reseach area or simply a data set you found interesting. See for example \href{{https://www.kaggle.com/datasets}}{kaggle.com} for examples.
+
+\paragraph{Part g) OLS, Ridge and Lasso regression with resampling.}
+Our final part deals with the parameterization of your digital terrain
+data (or your own data).  We will apply all three methods for linear regression, the same type (or higher order) of polynomial
+approximation and cross-validation as resampling technique to evaluate which
+model fits the data best.
+
+At the end, you should present a critical evaluation of your results
+and discuss the applicability of these regression methods to the type
+of data presented here (either the terrain data we propose or other data sets).
+
+
+
+
+\subsection*{Background literature}
+
+\begin{enumerate}
+\item For a discussion and derivation of the variances and mean squared errors using linear regression, see the \href{{https://arxiv.org/abs/1509.09169}}{Lecture notes on ridge regression by Wessel N. van Wieringen}
+
+\item The textbook of \href{{https://www.springer.com/gp/book/9780387848570}}{Trevor Hastie, Robert Tibshirani, Jerome H. Friedman, The Elements of Statistical Learning, Springer}, chapters 3 and 7 are the most relevant ones for the analysis here. 
 \end{enumerate}
 
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
+\noindent
+\subsection*{Introduction to numerical projects}
 
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on.
+Here follows a brief recipe and recommendation on how to write a report for each
+project.
 
-It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom
+\begin{itemize}
+  \item Give a short description of the nature of the problem and the eventual  numerical methods you have used.
 
-\begin{unnumlist}
-  \item First unnumbered item which has no label. This is an example
-  of sample text for unnumbered list. This is an example
-  of sample text for unnumbered list. This is an example
-  of sample text for unnumbered list.
-  \item Second unnumbered item.
-  \item Third unnumbered item.
-\end{unnumlist}
+  \item Describe the algorithm you have used and/or developed. Here you may find it convenient to use pseudocoding. In many cases you can describe the algorithm in the program itself.
 
+  \item Include the source code of your program. Comment your program properly.
 
-\subsection{Feature extraction using DCPCA}
+  \item If possible, try to find analytic solutions, or known limits in order to test your program when developing the code.
 
-Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.
+  \item Include your results either in figure form or in a table. Remember to        label your results. All tables and figures should have relevant captions        and labels on the axes.
 
- 
+  \item Try to evaluate the reliabilty and numerical stability/precision of your results. If possible, include a qualitative and/or quantitative discussion of the numerical stability, eventual loss of precision etc.
 
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this\break Figure \ref{Fig1}.
+  \item Try to give an interpretation of you results in your answers to  the problems.
 
- 
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried  and that this government of the people, by the people, for the people, shall not perish from the earth Figure \ref{Fig2}.
+  \item Critique: if possible include your comments and reflections about the  exercise, whether you felt you learnt something, ideas for improvements and  other thoughts you've made when solving the exercise. We wish to keep this course at the interactive level and your comments can help us improve it.
 
+  \item Try to establish a practice where you log your work at the  computerlab. You may find such a logbook very handy at later stages in your work, especially when you don't properly remember  what a previous test version  of your program did. Here you could also record  the time spent on solving the exercise, various algorithms you may have tested or other topics which you feel worthy of mentioning.
+\end{itemize}
 
-\begin{figure}
-\begin{center}
-%\includegraphics[width=\columnwidth]{fig1.eps}
-\includegraphics{fpo.eps}
-\caption{This is an example of figure caption.}\label{Fig1}
-\end{center}
-\end{figure}
+\noindent
+\subsection*{Format for electronic delivery of report and programs}
 
-\begin{figure*}
-\begin{center}
-\includegraphics[width=30pc, height=12pc]{fpo.eps}
-\caption{It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which $x^{(0)}=x_1$ and $x^{(0)}=x_2$, where $x_1=(\frac{1}{\sqrt{3,522}},\dots,\frac{1}{\sqrt{3,522}})^T$ and $x_2=(\frac{1}{\sqrt{1,000}}, \dots, \frac{1}{\sqrt{1,000}},0,\dots,0)^T $. they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government of the people, by the people, for the people, shall not perish from the earth $(x^{(0)})^Tx^{(0)}=1$.}
- \label{Fig2}
-\end{center}
-\end{figure*}
+The preferred format for the report is a PDF file. You can also use DOC or postscript formats or as an ipython notebook file.  As programming language we prefer that you choose between C/C++, Fortran2008 or Python. The following prescription should be followed when preparing the report:
 
-It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government of the people, by the people, for the people, shall not perish from the earth
+\begin{itemize}
+  \item Use Canvas to hand in your projects, log in  at  \href{{https://www.uio.no/english/services/it/education/canvas/}}{\nolinkurl{https://www.uio.no/english/services/it/education/canvas/}} with your normal UiO username and password.
 
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government of the\break people, by the people, for the people, shall not perish from the earth Figure \ref{Fig2}.
+  \item Upload \textbf{only} the report file or the link to your GitHub/GitLab or similar typo of  repos!  For the source code file(s) you have developed please provide us with your link to your GitHub/GitLab or similar  domain.  The report file should include all of your discussions and a list of the codes you have developed.  Do not include library files which are available at the course homepage, unless you have made specific changes to them.
+
+  \item In your GitHub/GitLab or similar repository, please include a folder which contains selected results. These can be in the form of output from your code for a selected set of runs and input parameters.
+\end{itemize}
+
+\noindent
+Finally, 
+we encourage you to collaborate. Optimal working groups consist of 
+2-3 students. You can then hand in a common report. 
 
 
-\paragraph{This is an example of head level 4.}
 
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
+\subsection*{Software and needed installations}
 
-\section{DISCUSSION}
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government of the people, by the people, for the people, shall not perish from the earth.
+If you have Python installed (we recommend Python3) and you feel pretty familiar with installing different packages, 
+we recommend that you install the following Python packages via \textbf{pip} as
+\begin{enumerate}
+\item pip install numpy scipy matplotlib ipython scikit-learn tensorflow sympy pandas pillow
+\end{enumerate}
 
-\section{CONCLUSION}
+\noindent
+For Python3, replace \textbf{pip} with \textbf{pip3}.
 
-Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.
+See below for a discussion of \textbf{tensorflow} and \textbf{scikit-learn}. 
 
- 
-Now we are engaged in a great civil war, testing whether that nation, or any nation, so conceived, and so dedicated, can long endure. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
+For OSX users we recommend also, after having installed Xcode, to install \textbf{brew}. Brew allows 
+for a seamless installation of additional software via for example
+\begin{enumerate}
+\item brew install python3
+\end{enumerate}
 
-\begin{acknowledgements}
-This is a multiline text of acknowledgments. We are met here on a great battlefield of that war. We have come to dedicate a portion of it as a final resting place for those who here gave their lives that that nation might live.
-\end{acknowledgements}
+\noindent
+For Linux users, with its variety of distributions like for example the widely popular Ubuntu distribution
+you can use \textbf{pip} as well and simply install Python as 
+\begin{enumerate}
+\item sudo apt-get install python3  (or python for python2.7)
+\end{enumerate}
+
+\noindent
+etc etc. 
+
+If you don't want to install various Python packages with their dependencies separately, we recommend two widely used distrubutions which set up  all relevant dependencies for Python, namely
+\begin{enumerate}
+\item \href{{https://docs.anaconda.com/}}{Anaconda} Anaconda is an open source distribution of the Python and R programming languages for large-scale data processing, predictive analytics, and scientific computing, that aims to simplify package management and deployment. Package versions are managed by the package management system \textbf{conda}
+
+\item \href{{https://www.enthought.com/product/canopy/}}{Enthought canopy}  is a Python distribution for scientific and analytic computing distribution and analysis environment, available for free and under a commercial license.
+\end{enumerate}
+
+\noindent
+Popular software packages written in Python for ML are
+
+\begin{itemize}
+\item \href{{http://scikit-learn.org/stable/}}{Scikit-learn}, 
+
+\item \href{{https://www.tensorflow.org/}}{Tensorflow},
+
+\item \href{{http://pytorch.org/}}{PyTorch} and 
+
+\item \href{{https://keras.io/}}{Keras}.
+\end{itemize}
+
+\noindent
+These are all freely available at their respective GitHub sites. They 
+encompass communities of developers in the thousands or more. And the number
+of code developers and contributors keeps increasing.
 
 
-\begin{appendix}
 
-\section{AN EXAMPLE OF APPENDIX HEAD}
 
- Consider a data set
-\begin{equation}
-S=(f_{ij})_{m\times n}
-\end{equation} the \(i\)th
-data point of which is
-\[ (f_{i1}, . . . , f_{in}).\]
- Let $\overline{f}_q=\frac{1}{m}\sum_{i=1}^mf_{iq}$ and $\sigma_q$ The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. Suppose that
-\[X_i=(x_{i1},\dots,x_{in}) \indent (i=1,\dots, m),\]  
-where $x_{ij}=(f_{ij}-\overline{f}_j)/\sigma_j $ and
-\[B=(X_1^T,\dots,X_m^T)^T.\]
- Then we can show that
-\[C=B^TB=\sum\limits_{i=1}^m X_i^TX_i=(C_{jk})_{n\times n},\]
-where $C_{jk}=\sum_{i=1}^mx_{ij}x_{ik}$ is the correlation matrix. Our goal is to find a normalized vector 
-$$a_1=(a_{11},a_{12},\dots,a_{1n})^T$$
- such that the projection of the standardized data
-\[X_ia_1=\sum\limits_{k=1}^n x_{ik}a_{1k},\]
-\noindent then $Ba_1$ 
- \[a_1^TB^T Ba_1=a_1^TCa_1.\]
- Our goal is to maximize this value under the constraint $a_1^Ta_1=1$. Let $\lambda_{\rm max}$ be the largest eigenvalue of
- $C$. According to the Rayleigh--Ritz theorem, $a_1$ can be obtained by solving
- \[Ca_1= \lambda_{\rm max}a_1.\]
-But in a larger sense we can not dedicate -- we can not consecrate -- we can not hallow this ground. The brave men, living and dead, who struggled, here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember, what we say here, but can never forget what they did here. It is for us, the living, rather to be dedicated here to the unfinished work which they have, thus far, so nobly carried on \cite{abt1981}. It is rather for us to be here dedicated to the great task remaining before us  that from these honoured dead we take increased devotion to that cause for which they here gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain; that this nation shall have a new birth of freedom; and that this government \cite{abt1984b} of the people, by the people, for the people, shall not perish from the earth.
-\end{appendix}
 
-\bibliographystyle{pasa-mnras}
-\bibliography{1r_lamboo_notes}
+% ------------------- end of main content ---------------
+
+\begin{appendices}
+\section{Franke function}
+\begin{align*}
+f(x,y) &= \frac{3}{4}\exp{\left(-\frac{(9x-2)^2}{4} - \frac{(9y-2)^2}{4}\right)}+\frac{3}{4}\exp{\left(-\frac{(9x+1)^2}{49}- \frac{(9y+1)}{10}\right)} \\
+&+\frac{1}{2}\exp{\left(-\frac{(9x-7)^2}{4} - \frac{(9y-3)^2}{4}\right)} -\frac{1}{5}\exp{\left(-(9x-4)^2 - (9y-7)^2\right) }. \numberthis \label{eq:Franke}
+\end{align*}
+The function will be defined for $x,y\in [0,1]$.
+
+
+\section{Design matrix example}
+\end{appendices}
 
 \end{document}
+
