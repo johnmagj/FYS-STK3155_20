@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 # Where to save the figures and data files
 
@@ -30,16 +31,17 @@ def data_path(dat_id):
 def save_fig(fig_id):
     plt.savefig(image_path(fig_id) + ".png", format='png')
 
-def R2(y_data, y_model):
-    return 1 - np.sum((y_data - y_model) ** 2) / np.sum((y_data - np.mean(y_data)) ** 2)
+def R2(z_data, z_model):
+    return 1 - np.sum((z_data - z_model) ** 2) / np.sum((z_data - np.mean(z_data)) ** 2)
 
-def MSE(y_data,y_model):
-    n = np.size(y_model)
-    return np.sum((y_data-y_model)**2)/n
+def MSE(z_data,z_model):
+    n = np.size(z_model)
+    return np.sum((z_data-z_model)**2)/n
 
 np.random.seed(3155)
 
 #########################################################################
+# Franke function
 
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
@@ -157,22 +159,54 @@ for i in range(len(x)):
         X5[len(z)*i : len(z)*i + len(z),17] = (y[:,i]**4)*x[:,i]
         X5[len(z)*i : len(z)*i + len(z),18] = (x[:,i]**4)*y[:,i]
         X5[len(z)*i : len(z)*i + len(z),19] = y[:,i]**5
-        X5[len(z)*i : len(z)*i + len(z),20] = x[:,i]**5        
+        X5[len(z)*i : len(z)*i + len(z),20] = x[:,i]**5       
         
-#  The design matrix now as function of a given polynomial
-X = np.zeros((np.size(z),6))
-
+X6 = np.zeros((np.size(z),29))
 for i in range(len(x)):
-        X[len(z)*i : len(z)*i + len(z),0] = 1.0
-        X[len(z)*i : len(z)*i + len(z),1] = y[:,i]
-        X[len(z)*i : len(z)*i + len(z),2] = x[:,i]
-        X[len(z)*i : len(z)*i + len(z),3] = x[:,i]*y[:,i]
-        X[len(z)*i : len(z)*i + len(z),4] = y[:,i]**2
-        X[len(z)*i : len(z)*i + len(z),5] = x[:,i]**2
+        X6[len(z)*i : len(z)*i + len(z),0] = 1.0
+        X6[len(z)*i : len(z)*i + len(z),1] = y[:,i]
+        X6[len(z)*i : len(z)*i + len(z),2] = x[:,i]
+        X6[len(z)*i : len(z)*i + len(z),3] = x[:,i]*y[:,i]
+        X6[len(z)*i : len(z)*i + len(z),4] = y[:,i]**2
+        X6[len(z)*i : len(z)*i + len(z),5] = x[:,i]**2
+        X6[len(z)*i : len(z)*i + len(z),6] = (y[:,i]**2)*x[:,i]
+        X6[len(z)*i : len(z)*i + len(z),7] = (x[:,i]**2)*y[:,i]
+        X6[len(z)*i : len(z)*i + len(z),8] = y[:,i]**3
+        X6[len(z)*i : len(z)*i + len(z),9] = x[:,i]**3
+        X6[len(z)*i : len(z)*i + len(z),10] = (x[:,i]**2)*(y[:,i]**2)
+        X6[len(z)*i : len(z)*i + len(z),11] = (y[:,i]**3)*x[:,i]
+        X6[len(z)*i : len(z)*i + len(z),12] = (x[:,i]**3)*y[:,i]
+        X6[len(z)*i : len(z)*i + len(z),13] = y[:,i]**4
+        X6[len(z)*i : len(z)*i + len(z),14] = x[:,i]**4 
+        X6[len(z)*i : len(z)*i + len(z),15] = (y[:,i]**3)*x[:,i]**2
+        X6[len(z)*i : len(z)*i + len(z),16] = (x[:,i]**3)*y[:,i]**2
+        X6[len(z)*i : len(z)*i + len(z),17] = (y[:,i]**4)*x[:,i]
+        X6[len(z)*i : len(z)*i + len(z),18] = (x[:,i]**4)*y[:,i]
+        X6[len(z)*i : len(z)*i + len(z),19] = y[:,i]**5
+        X6[len(z)*i : len(z)*i + len(z),20] = x[:,i]**5
+        X6[len(z)*i : len(z)*i + len(z),21] = (y[:,i]**3)*x[:,i]**3
+        X6[len(z)*i : len(z)*i + len(z),22] = (x[:,i]**3)*y[:,i]**3
+        X6[len(z)*i : len(z)*i + len(z),23] = (y[:,i]**4)*x[:,i]**2
+        X6[len(z)*i : len(z)*i + len(z),24] = (x[:,i]**4)*y[:,i]**2
+        X6[len(z)*i : len(z)*i + len(z),25] = (y[:,i]**5)*x[:,i]
+        X6[len(z)*i : len(z)*i + len(z),26] = (x[:,i]**5)*y[:,i]
+        X6[len(z)*i : len(z)*i + len(z),27] = y[:,i]**6
+        X6[len(z)*i : len(z)*i + len(z),28] = x[:,i]**6
         
-def calc(X):
+        
+def solver(X_in, Z_in):
+    """
+    X_in is design matrix, Z_in observation/data vector
+    """
     # We split the data in test and training data
-    X_train, X_test, Z_train, Z_test = train_test_split(X, Z, test_size=0.2)
+    X_train, X_test, Z_train, Z_test = train_test_split(X_in, Z_in, test_size=0.2)
+    #Scaling data
+    scaler = StandardScaler()
+    scaler.fit(X_train)
+    X_train_scaled = scaler.transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+    
+
     # matrix inversion to find beta
     beta = np.linalg.inv(X_train.T @ X_train) @ X_train.T @ Z_train
     print(beta)
@@ -187,12 +221,19 @@ def calc(X):
     print(R2(Z_test,Zpredict))
     print("Test MSE")
     print(MSE(Z_test,Zpredict))
-    
-    return
-        
-        
+    return MSE(Z_test,Zpredict), beta
+
+      
 # We split the data in test and training data
 X1_train, X1_test, Z_train, Z_test = train_test_split(X1, Z, test_size=0.2)
+
+#Scaling data
+scaler = StandardScaler()
+scaler.fit(X1_train)
+X1_train_scaled = scaler.transform(X1_train)
+X1_test_scaled = scaler.transform(X1_test)
+
+
 # matrix inversion to find beta
 beta = np.linalg.inv(X1_train.T @ X1_train) @ X1_train.T @ Z_train
 print(beta)
@@ -211,27 +252,15 @@ print(MSE(Z_test,Zpredict))
 print('##########################################################')
 
 # We split the data in test and training data
-X_train, X_test, Z_train, Z_test = train_test_split(X, Z, test_size=0.2)
-# matrix inversion to find beta
-beta = np.linalg.inv(X_train.T @ X_train) @ X_train.T @ Z_train
-print(beta)
-# and then make the prediction
-Ztilde = X_train @ beta
-print("Training R2")
-print(R2(Z_train,Ztilde))
-print("Training MSE")
-print(MSE(Z_train,Ztilde))
-Zpredict = X_test @ beta
-print("Test R2")
-print(R2(Z_test,Zpredict))
-print("Test MSE")
-print(MSE(Z_test,Zpredict))
-
-print('##########################################################')
-
-# We split the data in test and training data
 X5_train, X5_test, Z_train, Z_test = train_test_split(X5, Z, test_size=0.2)
 # matrix inversion to find beta
+
+#Scaling data
+scaler = StandardScaler()
+scaler.fit(X5_train)
+X5_train_scaled = scaler.transform(X5_train)
+X5_test_scaled = scaler.transform(X5_test)
+
 beta = np.linalg.inv(X5_train.T @ X5_train) @ X5_train.T @ Z_train
 print(beta)
 # and then make the prediction
@@ -245,3 +274,20 @@ print("Test R2")
 print(R2(Z_test,Zpredict))
 print("Test MSE")
 print(MSE(Z_test,Zpredict))
+
+print('############################################################')
+
+
+"""
+M1,b1 = solver(X1, Z)
+print('############################################################')
+M2,b2 = solver(X2, Z)  
+M3,b3 = solver(X3, Z)
+M4,b4 = solver(X4, Z)
+M5,b5 = solver(X5, Z)
+M6,b6 = solver(X6, Z)
+    
+
+plt.loglog(np.array([1,2,3,4,5,6]), np.array([M1,M2,M3,M4,M5,M6]),'.')
+plt.loglog(np.array([1,2,3,4,5,6]), np.array([b1[0],b2[0],b3[0],b4[0],b5[0],b6[0]]),'.')
+"""

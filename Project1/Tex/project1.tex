@@ -134,7 +134,7 @@ FYS-STK3155
 % ----------------- end author(s) -------------------------
 
 \begin{abstract}
-Her
+In this project we examines the Franke function and treating it using linear models.
 \end{abstract}
 
 \vspace{1cm}
@@ -143,9 +143,43 @@ Her
 
 
 \section{Introduction}
-We start off by examning the so called Franke function, \vref{eq:Franke}. The formula give us a set of values located in above the xy-plane similar to altitude points.
+We start by examning the so called \textbf{Franke function}, \vref{eq:Franke}. The formula give us a set of values located above the xy-plane similar to altitude points.\par
 
+Adding stocastic noise to the function quickly disturb its natural smooth surface.
 \section{Methods}
+It is a bit more complicated in the two variable case.
+When setting up the problem as an matrix equation the task is to use linear algebra to solve the matrix equation: $\mathbf{y} = \mathbf{X} \, \boldsymbol{\beta}$, where $\mathbf{y}$ is an (m x 1) vector containing the data, $\mathbf{X}$ a (m x n) matrix often called the design matrix and $\boldsymbol{\beta}$ the parameters, a (n x 1) vector.\par
+
+A regular problem with in only one variable would look like
+In the simplest case with only one variable we ... 
+
+Since our dataset is a grid of values, we would have to organise them into a vector in order to be able solve it as an linear algebra problem.\par 
+
+
+\begin{equation}
+\begin{bmatrix}
+z_{01} \\
+z_{02} \\
+\vdots \\
+z_{0m} \\
+z_{11} \\
+z_{12} \\
+\vdots \\
+z_{nm} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & x_0 & y_0  & x_0 y_0 & \dots & x_0^P & y_0^P \\
+1 & x_0 & y_1 & x_0 y_1 & \dots & x_2^n \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+z_{0m} \\
+z_{11} \\
+z_{12} \\
+\vdots \\
+z_{nm} \\
+\end{bmatrix}
+\end{equation}
+
 
 \subsection{Code and implementation}
 
